@@ -57,6 +57,9 @@ public class SignupController {
                     if (user != null) {
 						status.setText("Created " + user.getUsername());
 						status.setTextFill(Color.GREEN);
+                        model.setCurrentUser(user);
+                        parentStage.show();
+                        stage.close();
 					} else {
 						status.setText("Cannot create user");
 						status.setTextFill(Color.RED);

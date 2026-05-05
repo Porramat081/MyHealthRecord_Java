@@ -40,7 +40,17 @@ public class LoginController {
 	}
 	
 	@FXML
-	public void initialize() {		
+	public void initialize() {
+
+        stage.setOnShown(event -> {
+            if(model.getCurrentUser() != null){
+                System.out.println("Existing user");
+
+                name.setText(model.getCurrentUser().getUsername());
+                password.setText(model.getCurrentUser().getPassword());
+            }
+        });
+
 		login.setOnAction(event -> {
 			if (!name.getText().isEmpty() && !password.getText().isEmpty()) {
 				User user;
@@ -86,7 +96,7 @@ public class LoginController {
 				SignupController signupController =  new SignupController(stage, model);
 
 				loader.setController(signupController);
-				VBox root = loader.load();
+				Pane root = loader.load();
 				
 				signupController.showStage(root);
 				

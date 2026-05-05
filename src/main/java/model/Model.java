@@ -25,6 +25,6 @@ public class Model {
 	}
 	
 	public void setCurrentUser(User user) {
-		currentUser = user;
+		this.currentUser = user;
 	}
 }

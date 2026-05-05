@@ -12,16 +12,16 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" cache="true" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="636.0" vgap="10.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane alignment="CENTER" cache="true" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="694.0" vgap="10.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="86.39998779296874" minHeight="26.39998779296875" prefHeight="85.6" />
-    <RowConstraints maxHeight="124.79998168945312" minHeight="-Infinity" prefHeight="67.19999389648439" />
-    <RowConstraints maxHeight="175.1999755859375" minHeight="-Infinity" prefHeight="72.80000610351561" />
-      <RowConstraints maxHeight="158.79998779296872" minHeight="40.4000244140625" prefHeight="58.79998779296875" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="124.79998168945312" minHeight="-Infinity" prefHeight="68.20000000000002" />
+    <RowConstraints maxHeight="175.1999755859375" minHeight="-Infinity" prefHeight="63.99998779296874" />
+      <RowConstraints maxHeight="159.8000061035156" minHeight="40.4000244140625" prefHeight="157.40001220703124" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="517.0" prefWidth="694.0" text="MyHealth Login" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
@@ -44,8 +44,8 @@
          <font>
             <Font size="15.0" />
          </font></PasswordField>
-      <Label fx:id="message" prefHeight="42.0" prefWidth="220.0" GridPane.rowIndex="3" />
-      <HBox alignment="TOP_CENTER" prefHeight="43.0" prefWidth="318.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <Label fx:id="message" alignment="CENTER" prefHeight="42.0" prefWidth="220.0" GridPane.rowIndex="3" />
+      <HBox alignment="TOP_CENTER" prefHeight="70.0" prefWidth="347.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
             <Button fx:id="login" contentDisplay="CENTER" maxHeight="43.0" maxWidth="87.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="87.0" text="Login">
                <cursor>

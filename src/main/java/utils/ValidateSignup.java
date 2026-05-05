@@ -6,14 +6,20 @@ public class ValidateSignup {
 
         if(username.isEmpty()){
             return "Username cannot be empty.";
+        } else if (username.length() < 5 || username.length() > 15) {
+            return "Username must has 5 - 15 characters";
         } else if (password.isEmpty()) {
             return "Password cannot be empty.";
         } else if (!validatePass.isEmpty()) {
             return validatePass;
         } else if (firstname.isEmpty()) {
-            return "firstName cannot be empty.";
+            return "FirstName cannot be empty.";
+        } else if (firstname.length() < 3 || firstname.length() > 15) {
+            return "FirstName must has 3-15 characters";
         } else if (lastname.isEmpty()) {
-            return "lastName cannot be empty.";
+            return "LastName cannot be empty.";
+        }else if (lastname.length() < 3 || lastname.length() > 15) {
+            return "LastName must has 3-15 characters";
         }else{
             return "";
         }
@@ -21,13 +27,24 @@ public class ValidateSignup {
 
     public static String checkPasswordStrength(String password) {
         int length = password.length();
-        boolean hasLetter = false, hasDigit = false, hasSpecial = false, hasUpper = false;
+        boolean hasLetter = false;
+        boolean hasDigit = false;
+        boolean hasUpper = false;
+        boolean hasSpecial = false;
 
         for (char ch : password.toCharArray()) {
-            if (Character.isLetter(ch)) hasLetter = true;
-            else if (Character.isDigit(ch)) hasDigit = true;
-            else if (Character.isUpperCase(ch)) hasUpper = true;
-            else if ("!@#$%^&*".contains(String.valueOf(ch))) hasSpecial = true;
+            if (Character.isUpperCase(ch)) {
+                hasUpper = true;
+            } else if (Character.isLetter(ch)) {
+                hasLetter = true;
+            } else if (Character.isUpperCase(ch)) {
+                hasUpper = true;
+            } else if (Character.isDigit(ch)) {
+                hasDigit = true;
+            } else if ("!@#$%^&*".contains(String.valueOf(ch))) {
+                hasSpecial = true;
+            }
+
         }
 
         if (length < 8){
