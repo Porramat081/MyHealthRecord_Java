@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="636.0" spacing="10.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label prefHeight="22.0" prefWidth="273.0" text="Username">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <TextField fx:id="username" maxHeight="49.0" maxWidth="274.0" prefHeight="49.0" prefWidth="274.0" promptText="Create Username">
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+         <font>
+            <Font size="15.0" />
+         </font></TextField>
+      <Label prefHeight="22.0" prefWidth="275.0" text="Password">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <PasswordField fx:id="password" maxWidth="274.0" prefHeight="49.0" prefWidth="274.0" promptText="Create Password">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+         <font>
+            <Font size="15.0" />
+         </font>
+      </PasswordField>
+      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="20.0">
+         <children>
+            <Button fx:id="createUser" mnemonicParsing="false" prefHeight="44.0" prefWidth="114.0" text="Create user">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
+            <Button fx:id="close" mnemonicParsing="false" prefHeight="38.0" prefWidth="91.0" text="Close">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
+         </children>
+      </HBox>
+      <Label fx:id="status" />
+   </children>
+</VBox>
