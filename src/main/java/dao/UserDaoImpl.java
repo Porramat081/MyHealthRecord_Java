@@ -1,12 +1,11 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.security.NoSuchAlgorithmException;
+import java.sql.*;
+import java.time.LocalDateTime;
 
 import model.User;
+import utils.PasswordHasher;
 
 public class UserDaoImpl implements UserDao {
 	private final String TABLE_NAME = "users";
@@ -18,8 +17,14 @@ public class UserDaoImpl implements UserDao {
 	public void setup() throws SQLException {
 		try (Connection connection = Database.getConnection();
 				Statement stmt = connection.createStatement();) {
-			String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (username VARCHAR(10) NOT NULL,"
-					+ "password VARCHAR(8) NOT NULL," + "PRIMARY KEY (username))";
+			String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (username VARCHAR(16) NOT NULL,"
+					+ "password VARCHAR(16) NOT NULL,"
+                    + "firstName VARCHAR(16) NOT NULL,"
+                    + "lastName VARCHAR(16) NOT NULL,"
+                    + "createdAt TIMESTAMP NOT NULL,"
+                    + "editedAt TIMESTAMP NOT NULL,"
+                    + "salt VARCHAR(16) NOT NULL,"
+                    + "PRIMARY KEY (username))";
 			stmt.executeUpdate(sql);
 		} 
 	}
@@ -45,15 +50,26 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User createUser(String username, String password) throws SQLException {
-		String sql = "INSERT INTO " + TABLE_NAME + " VALUES (?, ?)";
+	public User createUser(String username, String password , String firstName , String lastName) throws SQLException {
+		String sql = "INSERT INTO " + TABLE_NAME + " VALUES (?, ? ,?,?,?,?,?)";
+        Timestamp timestampNow = Timestamp.valueOf(LocalDateTime.now());
+        String genSalt = PasswordHasher.generateSalt();
 		try (Connection connection = Database.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql);) {
+            String hashPassword = PasswordHasher.hashPassword(password,genSalt);
+
 			stmt.setString(1, username);
-			stmt.setString(2, password);
+			stmt.setString(2, hashPassword);
+            stmt.setString(3,firstName);
+            stmt.setString(4,lastName);
+            stmt.setTimestamp(5,timestampNow);
+            stmt.setTimestamp(6,timestampNow);
+            stmt.setString(7,genSalt);
 
 			stmt.executeUpdate();
-			return new User(username, password);
-		} 
-	}
+			return new User(username, password , firstName , lastName , timestampNow,timestampNow);
+		} catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
