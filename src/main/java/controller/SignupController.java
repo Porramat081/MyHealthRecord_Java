@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Model;
 import model.User;
+import utils.ValidateSignup;
 
 public class SignupController {
 	@FXML
@@ -20,6 +21,10 @@ public class SignupController {
 	private TextField password;
 	@FXML
 	private Button createUser;
+    @FXML
+    private TextField firstname;
+    @FXML
+    private TextField lastname;
 	@FXML
 	private Button close;
 	@FXML
@@ -38,11 +43,18 @@ public class SignupController {
 	@FXML
 	public void initialize() {
 		createUser.setOnAction(event -> {
-			if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
-				User user = new User(username.getText() , password.getText());
+            String inputUsername = username.getText();
+            String inputPassword = password.getText();
+            String inputFirstname = firstname.getText();
+            String inputLastname = lastname.getText();
+
+            String validateResult = ValidateSignup.validateForm(inputUsername , inputPassword , inputFirstname ,inputLastname);
+			if (validateResult.isEmpty()) {
+				User user = new User();
 				try {
-					user = model.getUserDao().createUser(user.getUsername(), user.getPassword());
-					if (user != null) {
+					user = model.getUserDao().createUser(inputUsername , inputPassword , inputFirstname ,inputLastname);
+
+                    if (user != null) {
 						status.setText("Created " + user.getUsername());
 						status.setTextFill(Color.GREEN);
 					} else {
@@ -55,7 +67,7 @@ public class SignupController {
 				}
 				
 			} else {
-				status.setText("Empty username or password");
+				status.setText(validateResult);
 				status.setTextFill(Color.RED);
 			}
 		});
@@ -67,7 +79,7 @@ public class SignupController {
 	}
 	
 	public void showStage(Pane root) {
-		Scene scene = new Scene(root, 500, 300);
+		Scene scene = new Scene(root, 694, 517);
 		stage.setScene(scene);
 		stage.setResizable(false);
 		stage.setTitle("Sign up");

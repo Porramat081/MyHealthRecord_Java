@@ -1,47 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="636.0" spacing="10.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label prefHeight="22.0" prefWidth="273.0" text="Username">
-         <font>
-            <Font size="15.0" />
-         </font></Label>
-      <TextField fx:id="username" maxHeight="49.0" maxWidth="274.0" prefHeight="49.0" prefWidth="274.0" promptText="Create Username">
-         <VBox.margin>
-            <Insets bottom="5.0" />
-         </VBox.margin>
-         <font>
-            <Font size="15.0" />
-         </font></TextField>
-      <Label prefHeight="22.0" prefWidth="275.0" text="Password">
-         <font>
-            <Font size="15.0" />
-         </font></Label>
-      <PasswordField fx:id="password" maxWidth="274.0" prefHeight="49.0" prefWidth="274.0" promptText="Create Password">
-         <VBox.margin>
-            <Insets bottom="10.0" />
-         </VBox.margin>
-         <font>
-            <Font size="15.0" />
-         </font>
-      </PasswordField>
-      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="20.0">
-         <children>
-            <Button fx:id="createUser" mnemonicParsing="false" prefHeight="44.0" prefWidth="114.0" text="Create user">
-               <font>
-                  <Font size="15.0" />
-               </font></Button>
-            <Button fx:id="close" mnemonicParsing="false" prefHeight="38.0" prefWidth="91.0" text="Close">
-               <font>
-                  <Font size="15.0" />
-               </font></Button>
-         </children>
-      </HBox>
-      <Label fx:id="status" />
-   </children>
-</VBox>
+
+<Pane prefHeight="517.0" prefWidth="694.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label alignment="CENTER" contentDisplay="TOP" prefHeight="87.0" prefWidth="694.0" text="SignUp Form" textAlignment="CENTER">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <GridPane alignment="CENTER" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="694.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="348.79998779296875" minWidth="10.0" prefWidth="298.99998779296874" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.99999999999994" minWidth="10.0" prefWidth="300.60001220703117" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="352.6000045776367" minHeight="10.0" prefHeight="284.8" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="167.60001220703128" minHeight="0.0" prefHeight="112.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Pane prefHeight="297.0" prefWidth="297.0">
+                    <children>
+                        <Label layoutX="13.0" layoutY="14.0" prefHeight="22.0" prefWidth="273.0" text="Username">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="username" layoutX="12.0" layoutY="36.0" maxHeight="49.0" maxWidth="274.0" prefHeight="49.0" prefWidth="274.0" promptText="Create Username">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutX="12.0" layoutY="102.0" prefHeight="22.0" prefWidth="275.0" text="Password">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Label>
+                        <PasswordField fx:id="password" layoutX="12.0" layoutY="131.0" maxWidth="274.0" prefHeight="49.0" prefWidth="274.0" promptText="Create Password">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </PasswordField>
+                        <Label layoutX="12.0" layoutY="197.0" prefHeight="22.0" prefWidth="275.0" text="Confirm Password">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Label>
+                        <PasswordField fx:id="confirmpassword" layoutX="12.0" layoutY="226.0" maxWidth="274.0" prefHeight="49.0" prefWidth="274.0" promptText="Confirm Password">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </PasswordField>
+                    </children>
+                </Pane>
+                <Pane prefHeight="199.0" prefWidth="301.0" GridPane.columnIndex="1">
+                    <children>
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="22.0" prefWidth="273.0" text="Firstname">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="firstname" layoutX="12.0" layoutY="38.0" maxHeight="49.0" maxWidth="274.0" prefHeight="49.0" prefWidth="274.0" promptText="Enter First Name">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutX="12.0" layoutY="102.0" prefHeight="22.0" prefWidth="275.0" text="Lastname">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="lastname" layoutX="12.0" layoutY="131.0" maxWidth="274.0" prefHeight="49.0" prefWidth="274.0" promptText="Enter Last Name">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </TextField>
+                        <Label fx:id="status" layoutX="12.0" layoutY="202.0" prefHeight="77.0" prefWidth="282.0" />
+                    </children>
+                </Pane>
+                <HBox alignment="CENTER" prefHeight="56.0" prefWidth="301.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <children>
+                        <Button fx:id="createUser" mnemonicParsing="false" prefHeight="44.0" prefWidth="114.0" text="Create user">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="close" mnemonicParsing="false" prefHeight="44.0" prefWidth="91.0" text="Close">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </GridPane>
+    </children>
+</Pane>
