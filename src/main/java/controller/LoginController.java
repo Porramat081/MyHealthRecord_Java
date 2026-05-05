@@ -63,7 +63,7 @@ public class LoginController {
 							HomeController homeController = new HomeController(stage, model);
 							
 							loader.setController(homeController);
-							VBox root = loader.load();
+							Pane root = loader.load();
 	
 							homeController.showStage(root);
 							stage.close();

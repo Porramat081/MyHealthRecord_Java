@@ -31,22 +31,33 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User getUser(String username, String password) throws SQLException {
-		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE username = ? AND password = ?";
+		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE username = ?";
+
 		try (Connection connection = Database.getConnection(); 
 				PreparedStatement stmt = connection.prepareStatement(sql);) {
 			stmt.setString(1, username);
-			stmt.setString(2, password);
 			
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
+                    String getPassword = rs.getString("password");
+                    String getSalt = rs.getString("salt");
+                    if(!PasswordHasher.verifyPassword(password,getSalt,getPassword)){
+                        return null;
+                    }
 					User user = new User();
 					user.setUsername(rs.getString("username"));
-					user.setPassword(rs.getString("password"));
+					user.setPassword(password);
+                    user.setFirstname(rs.getString("firstName"));
+                    user.setLastname(rs.getString("lastName"));
+                    user.setCreatedAt(rs.getTimestamp("createdAt"));
+                    user.setEditedAt(rs.getTimestamp("editedAt"));
 					return user;
 				}
 				return null;
-			} 
-		}
+			} catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+        }
 	}
 
 	@Override

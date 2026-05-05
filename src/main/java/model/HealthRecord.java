@@ -1,49 +1,45 @@
 package model;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class HealthRecord {
+    private int healthRecordId;
     private String username; //user's username
     private int upperBP;
     private int lowerBP;
-    private int weight;
+    private float weight;
     private float temperature;
     private String note;
-    private LocalDate createdDate;
-    private LocalTime createdTime;
-    private LocalDate editedDate;
-    private LocalTime editedTime;
 
-    public HealthRecord(String username , int upperBP , int lowerBP , int weight , float temperature){
-        LocalDate dateNow = LocalDate.now();
-        LocalTime timeNow  = LocalTime.now();
+    private Timestamp createdAt;
+    private Timestamp editedAt;
 
+    public HealthRecord(int healthRecordId ,String username , int upperBP , int lowerBP , float weight , float temperature ,Timestamp createdAt){
+        this.healthRecordId = healthRecordId;
         this.username = username;
         this.upperBP = upperBP;
         this.lowerBP = lowerBP;
         this.weight = weight;
         this.temperature = temperature;
-        this.createdDate = dateNow;
-        this.createdTime = timeNow;
-        this.editedDate = dateNow;
-        this.editedTime = timeNow;
 
-        this.note = "";
+        this.createdAt = createdAt;
+        this.editedAt = createdAt;
     }
-    public HealthRecord(String username , int upperBP , int lowerBP , int weight , float temperature , String note){
+    public HealthRecord(int healthRecordId, String username , int upperBP , int lowerBP , float weight , float temperature , String note , Timestamp createdAt , Timestamp editedAt){
         LocalDate dateNow = LocalDate.now();
         LocalTime timeNow  = LocalTime.now();
 
+        this.healthRecordId = healthRecordId;
         this.username = username;
         this.upperBP = upperBP;
         this.lowerBP = lowerBP;
         this.weight = weight;
         this.temperature = temperature;
-        this.createdDate = dateNow;
-        this.createdTime = timeNow;
-        this.editedDate = dateNow;
-        this.editedTime = timeNow;
+
+        this.createdAt = createdAt;
+        this.editedAt = editedAt;
 
         this.note = note;
     }
@@ -60,6 +56,18 @@ public class HealthRecord {
         return upperBP;
     }
 
+    public int getHealthRecordId() {
+        return healthRecordId;
+    }
+
+    public void setHealthRecordId(int healthRecordId) {
+        this.healthRecordId = healthRecordId;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
     public void setUpperBP(int upperBP) {
         this.upperBP = upperBP;
     }
@@ -72,7 +80,23 @@ public class HealthRecord {
         this.lowerBP = lowerBP;
     }
 
-    public int getWeight() {
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getEditedAt() {
+        return editedAt;
+    }
+
+    public void setEditedAt(Timestamp editedAt) {
+        this.editedAt = editedAt;
+    }
+
+    public float getWeight() {
         return weight;
     }
 
@@ -94,38 +118,6 @@ public class HealthRecord {
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public LocalDate getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public LocalTime getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(LocalTime createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public LocalDate getEditedDate() {
-        return editedDate;
-    }
-
-    public void setEditedDate(LocalDate editedDate) {
-        this.editedDate = editedDate;
-    }
-
-    public LocalTime getEditedTime() {
-        return editedTime;
-    }
-
-    public void setEditedTime(LocalTime editedTime) {
-        this.editedTime = editedTime;
     }
 
     public String getBP(){
