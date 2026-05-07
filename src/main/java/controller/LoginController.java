@@ -46,6 +46,8 @@ public class LoginController {
             if(model.getCurrentUser() != null){
                 name.setText(model.getCurrentUser().getUsername());
                 password.setText(model.getCurrentUser().getPassword());
+                message.setText("Create user successfully");
+                message.setTextFill(Color.GREEN);
             }
         });
 

@@ -1,7 +1,7 @@
 package utils;
 
 public class ValidateSignup {
-    public static String validateForm(String username , String password , String firstname , String lastname){
+    public static String validateForm(String username , String password , String firstname , String lastname , String confirmedPassword){
         String validatePass = checkPasswordStrength(password);
 
         if(username.isEmpty()){
@@ -20,6 +20,8 @@ public class ValidateSignup {
             return "LastName cannot be empty.";
         }else if (lastname.length() < 3 || lastname.length() > 15) {
             return "LastName must has 3-15 characters";
+        }else if(!password.equals(confirmedPassword)){
+            return "Password must be same as confirmed password";
         }else{
             return "";
         }

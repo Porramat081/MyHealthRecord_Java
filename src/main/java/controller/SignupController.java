@@ -29,6 +29,8 @@ public class SignupController {
 	private Button close;
 	@FXML
 	private Label status;
+    @FXML
+    private TextField confirmpassword;
 	
 	private Stage stage;
 	private Stage parentStage;
@@ -47,8 +49,9 @@ public class SignupController {
             String inputPassword = password.getText();
             String inputFirstname = firstname.getText();
             String inputLastname = lastname.getText();
+            String inputConfirmedPassword = confirmpassword.getText();
 
-            String validateResult = ValidateSignup.validateForm(inputUsername , inputPassword , inputFirstname ,inputLastname);
+            String validateResult = ValidateSignup.validateForm(inputUsername , inputPassword , inputFirstname ,inputLastname , inputConfirmedPassword);
 			if (validateResult.isEmpty()) {
 				User user = new User();
 				try {
