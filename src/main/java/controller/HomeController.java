@@ -4,17 +4,21 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.HealthRecord;
 import model.Model;
 import model.User;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +36,10 @@ public class HomeController {
     private Text welcome;
     @FXML
     private ScrollPane tablePane;
+    @FXML
+    private MenuItem signout;
+    @FXML
+    private MenuItem editprofile;
 
 	
 	public HomeController(Stage parentStage, Model model) {
@@ -48,6 +56,27 @@ public class HomeController {
         ArrayList<HealthRecord> hrs = model.getHealthRecordDao().getHealthRecords(currentUser.getUsername());
 
         model.setCurrentHealthRecords(hrs);
+
+        signout.setOnAction(event -> {
+            model.resetState();
+            stage.close();
+            parentStage.show();
+        });
+
+        editprofile.setOnAction(event -> {
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditView.fxml"));
+                ProfileController profileController = new ProfileController(stage,model);
+                loader.setController(profileController);
+                Pane root = loader.load();
+                profileController.showStage(root);
+
+            }
+            catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         // Record Table
         TableView<HealthRecord> table = new TableView<>();
@@ -142,9 +171,6 @@ public class HomeController {
         String welcomeMessage = welcome.getText() + " " + currentUser.getFirstname()+" "+currentUser.getLastname();
         welcome.setText(welcomeMessage);
     }
-
-
-	
 
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 1280, 800);

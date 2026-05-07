@@ -58,6 +58,27 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
+    public boolean editUser(User editedUser) throws SQLException {
+        String sql = "UPDATE "+TABLE_NAME+" SET username = ? , password = ? , firstname = ? , lastname = ? , editedAt = ? WHERE username = ?";
+
+        try(Connection connection = Database.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql)){
+            String hashPassword = PasswordHasher.hashPassword(editedUser.getPassword());
+
+            stmt.setString(1,editedUser.getUsername());
+            stmt.setString(2,hashPassword);
+            stmt.setString(3, editedUser.getFirstname());
+            stmt.setString(4, editedUser.getLastname());
+            stmt.setTimestamp(5 , editedUser.getEditedAt());
+            stmt.setString(6 , editedUser.getUsername());
+            int result = stmt.executeUpdate();
+            return result > 0;
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 	@Override
 	public User createUser(String username, String password , String firstName , String lastName) throws SQLException {
 		String sql = "INSERT INTO " + TABLE_NAME + " VALUES (?,?,?,?,?,?)";

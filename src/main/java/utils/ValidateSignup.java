@@ -1,6 +1,7 @@
 package utils;
 
 public class ValidateSignup {
+
     public static String validateForm(String username , String password , String firstname , String lastname , String confirmedPassword){
         String validatePass = checkPasswordStrength(password);
 

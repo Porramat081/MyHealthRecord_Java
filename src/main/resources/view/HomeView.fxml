@@ -13,19 +13,10 @@
    <children>
       <MenuBar prefHeight="31.0" prefWidth="1281.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Menu">
             <items>
+                  <MenuItem fx:id="editprofile" mnemonicParsing="false" text="Edit profile" />
               <MenuItem fx:id="signout" mnemonicParsing="false" text="Sign out" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
         </menus>

@@ -22,6 +22,12 @@ public class Model {
 		userDao.setup();
         healthRecordDao.setup();
 	}
+
+    public void resetState(){
+        this.setCurrentUser(null);
+        this.setCurrentHealthRecords(null);
+    }
+
 	public UserDao getUserDao() {
 		return userDao;
 	}
