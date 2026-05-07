@@ -23,7 +23,6 @@ public class UserDaoImpl implements UserDao {
                     + "lastName VARCHAR(16) NOT NULL,"
                     + "createdAt TIMESTAMP NOT NULL,"
                     + "editedAt TIMESTAMP NOT NULL,"
-                    + "salt VARCHAR(16) NOT NULL,"
                     + "PRIMARY KEY (username))";
 			stmt.executeUpdate(sql);
 		} 
@@ -31,19 +30,18 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User getUser(String username, String password) throws SQLException {
-		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE username = ?";
+		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE username = ? and password = ?";
 
 		try (Connection connection = Database.getConnection(); 
 				PreparedStatement stmt = connection.prepareStatement(sql);) {
+
+            String hashPass = PasswordHasher.hashPassword(password);
+
 			stmt.setString(1, username);
+            stmt.setString(2,hashPass);
 			
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
-                    String getPassword = rs.getString("password");
-                    String getSalt = rs.getString("salt");
-                    if(!PasswordHasher.verifyPassword(password,getSalt,getPassword)){
-                        return null;
-                    }
 					User user = new User();
 					user.setUsername(rs.getString("username"));
 					user.setPassword(password);
@@ -54,20 +52,20 @@ public class UserDaoImpl implements UserDao {
 					return user;
 				}
 				return null;
-			} catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
+			}
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
-	}
+    }
 
 	@Override
 	public User createUser(String username, String password , String firstName , String lastName) throws SQLException {
-		String sql = "INSERT INTO " + TABLE_NAME + " VALUES (?, ? ,?,?,?,?,?)";
+		String sql = "INSERT INTO " + TABLE_NAME + " VALUES (?,?,?,?,?,?)";
         Timestamp timestampNow = Timestamp.valueOf(LocalDateTime.now());
-        String genSalt = PasswordHasher.generateSalt();
+
 		try (Connection connection = Database.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql);) {
-            String hashPassword = PasswordHasher.hashPassword(password,genSalt);
+            String hashPassword = PasswordHasher.hashPassword(password);
 
 			stmt.setString(1, username);
 			stmt.setString(2, hashPassword);
@@ -75,7 +73,6 @@ public class UserDaoImpl implements UserDao {
             stmt.setString(4,lastName);
             stmt.setTimestamp(5,timestampNow);
             stmt.setTimestamp(6,timestampNow);
-            stmt.setString(7,genSalt);
 
 			stmt.executeUpdate();
 			return new User(username, password , firstName , lastName , timestampNow,timestampNow);

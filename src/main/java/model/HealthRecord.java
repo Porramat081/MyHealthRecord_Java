@@ -1,14 +1,11 @@
 package model;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class HealthRecord {
     private int healthRecordId;
     private String username; //user's username
-    private int upperBP;
-    private int lowerBP;
+    private String bloodPressure;
     private float weight;
     private float temperature;
     private String note;
@@ -16,25 +13,11 @@ public class HealthRecord {
     private Timestamp createdAt;
     private Timestamp editedAt;
 
-    public HealthRecord(int healthRecordId ,String username , int upperBP , int lowerBP , float weight , float temperature ,Timestamp createdAt){
-        this.healthRecordId = healthRecordId;
-        this.username = username;
-        this.upperBP = upperBP;
-        this.lowerBP = lowerBP;
-        this.weight = weight;
-        this.temperature = temperature;
-
-        this.createdAt = createdAt;
-        this.editedAt = createdAt;
-    }
-    public HealthRecord(int healthRecordId, String username , int upperBP , int lowerBP , float weight , float temperature , String note , Timestamp createdAt , Timestamp editedAt){
-        LocalDate dateNow = LocalDate.now();
-        LocalTime timeNow  = LocalTime.now();
+    public HealthRecord(int healthRecordId, String username , String bloodPressure, float weight , float temperature , String note , Timestamp createdAt , Timestamp editedAt){
 
         this.healthRecordId = healthRecordId;
         this.username = username;
-        this.upperBP = upperBP;
-        this.lowerBP = lowerBP;
+        this.bloodPressure = bloodPressure;
         this.weight = weight;
         this.temperature = temperature;
 
@@ -52,8 +35,8 @@ public class HealthRecord {
         this.username = username;
     }
 
-    public int getUpperBP() {
-        return upperBP;
+    public String getBloodPressure(){
+        return this.bloodPressure;
     }
 
     public int getHealthRecordId() {
@@ -68,17 +51,10 @@ public class HealthRecord {
         this.weight = weight;
     }
 
-    public void setUpperBP(int upperBP) {
-        this.upperBP = upperBP;
+    public void setBloodPressure(String bloodPressure) {
+        this.bloodPressure = bloodPressure;
     }
 
-    public int getLowerBP() {
-        return lowerBP;
-    }
-
-    public void setLowerBP(int lowerBP) {
-        this.lowerBP = lowerBP;
-    }
 
     public Timestamp getCreatedAt() {
         return createdAt;
@@ -120,7 +96,4 @@ public class HealthRecord {
         this.note = note;
     }
 
-    public String getBP(){
-        return this.upperBP+" / "+this.lowerBP;
-    }
 }

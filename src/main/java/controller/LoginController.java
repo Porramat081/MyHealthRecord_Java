@@ -44,8 +44,6 @@ public class LoginController {
 
         stage.setOnShown(event -> {
             if(model.getCurrentUser() != null){
-                System.out.println("Existing user");
-
                 name.setText(model.getCurrentUser().getUsername());
                 password.setText(model.getCurrentUser().getPassword());
             }
@@ -69,6 +67,7 @@ public class LoginController {
 							stage.close();
 						}catch (IOException e) {
 							message.setText(e.getMessage());
+                            e.printStackTrace();
 						}
 						
 					} else {
@@ -76,6 +75,7 @@ public class LoginController {
 						message.setTextFill(Color.RED);
 					}
 				} catch (SQLException e) {
+                    System.out.println(e.getMessage());
 					message.setText(e.getMessage());
 					message.setTextFill(Color.RED);
 				}

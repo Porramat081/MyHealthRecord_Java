@@ -6,15 +6,10 @@ import java.security.SecureRandom;
 import java.util.Base64;
 
 public class PasswordHasher {
-    // Generate salt
-    public static String generateSalt(){
-        byte[] salt = new byte[16];
-        new SecureRandom().nextBytes(salt);
-        return Base64.getEncoder().encodeToString(salt);
-    }
 
     // Hash a password
-    public static String hashPassword(String password , String salt) throws NoSuchAlgorithmException {
+    public static String hashPassword(String password) throws NoSuchAlgorithmException {
+        String salt = "this is salt";
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(salt.getBytes());
         byte[] hashBytes = md.digest(password.getBytes());
@@ -27,9 +22,4 @@ public class PasswordHasher {
         return sb.toString();
     }
 
-    // Verify password
-    public static boolean verifyPassword(String inputPassword , String storedSalt ,String storedHash) throws NoSuchAlgorithmException{
-        String inputHash = hashPassword(inputPassword , storedSalt);
-        return inputHash.equals(storedHash);
-    }
 }
