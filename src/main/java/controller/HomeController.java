@@ -72,6 +72,9 @@ public class HomeController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditView.fxml"));
                 ProfileController profileController = new ProfileController(stage,model);
+                profileController.setOnSaved(()->{
+                    this.welcome.setText(model.getCurrentUser().getFirstname() + " " +model.getCurrentUser().getLastname());
+                });
                 loader.setController(profileController);
                 Pane root = loader.load();
                 profileController.showStage(root);
@@ -159,8 +162,8 @@ public class HomeController {
                 super.updateItem(item , empty);
                 if(empty || item == null){
                     setText(null);
-                } else if (item.length() > 15) {
-                    setText(item.substring(0,15) + "...");
+                } else if (item.length() > 45) {
+                    setText(item.substring(0,45) + "...");
                 }else{
                     setText(item);
                 }

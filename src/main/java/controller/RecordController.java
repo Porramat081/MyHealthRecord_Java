@@ -61,6 +61,10 @@ public class RecordController {
 
         note.setText(this.selectedRecord.getNote());
 
+        cancel.setOnAction(event -> {
+            this.stage.close();
+        });
+
         edit.setOnAction(event -> {
             //validate edit health record
             String validateResult = ValidateHealthRecord.validateEditRecord(weight.getText(), temperature.getText(), upperBP.getText(), lowerBP.getText(), note.getText());

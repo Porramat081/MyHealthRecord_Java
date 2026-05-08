@@ -40,6 +40,8 @@ public class ProfileController {
     @FXML
     private Text message;
 
+    private Runnable onSaved;
+
     public ProfileController(Stage parentStage , Model model){
         this.stage = new Stage();
         this.model = model;
@@ -75,7 +77,7 @@ public class ProfileController {
                     if(result){
                         message.setText("Update Profile Successfully");
                         message.setFill(Color.GREEN);
-
+                        this.onSaved.run();
                     }else{
                         message.setText("Update Profile Unsuccessfully");
                         message.setFill(Color.RED);
@@ -87,6 +89,10 @@ public class ProfileController {
                 }
             }
         });
+    }
+
+    public void setOnSaved(Runnable callback){
+        this.onSaved = callback;
     }
 
     public void showStage(Parent root) {
