@@ -31,5 +31,6 @@
          </children>
       </HBox>
       <ScrollPane fx:id="tablePane" layoutX="16.0" layoutY="154.0" prefHeight="630.0" prefWidth="885.0" />
+      <Pane fx:id="addpane" layoutX="916.0" layoutY="154.0" prefHeight="630.0" prefWidth="350.0" />
    </children>
 </Pane>

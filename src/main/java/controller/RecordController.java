@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -35,7 +36,7 @@ public class RecordController {
     @FXML
     private TextField lowerBP;
     @FXML
-    private TextField note;
+    private TextArea note;
     @FXML
     private Button edit;
     @FXML

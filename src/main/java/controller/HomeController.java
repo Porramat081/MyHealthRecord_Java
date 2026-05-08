@@ -42,10 +42,11 @@ public class HomeController {
     private MenuItem signout;
     @FXML
     private MenuItem editprofile;
+    @FXML
+    private Pane addpane;
 
     private TableView<HealthRecord> table;
 
-	
 	public HomeController(Stage parentStage, Model model) {
 		this.stage = new Stage();
 		this.parentStage = parentStage;
@@ -54,7 +55,7 @@ public class HomeController {
 	
 	// Add your code to complete the functionality of the program
 	@FXML
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, IOException {
         User currentUser = model.getCurrentUser();
 
         ArrayList<HealthRecord> hrs = model.getHealthRecordDao().getHealthRecords(currentUser.getUsername());
@@ -73,7 +74,8 @@ public class HomeController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditView.fxml"));
                 ProfileController profileController = new ProfileController(stage,model);
                 profileController.setOnSaved(()->{
-                    this.welcome.setText(model.getCurrentUser().getFirstname() + " " +model.getCurrentUser().getLastname());
+                    String welcomeMessage = "Welcome , "+ currentUser.getFirstname()+" "+currentUser.getLastname();
+                    this.welcome.setText(welcomeMessage);
                 });
                 loader.setController(profileController);
                 Pane root = loader.load();
@@ -84,13 +86,27 @@ public class HomeController {
                 throw new RuntimeException(e);
             }
         });
+        // Add record pane
+        FXMLLoader subloader = new FXMLLoader(getClass().getResource("/view/AddRecord.fxml"));
+        AddController addController = new AddController(stage,model);
+        addController.setOnSaved(()-> {
+            try {
+                this.refreshTable();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        subloader.setController(addController);
+        Pane subPane = subloader.load();
+
+        addpane.getChildren().add(subPane);
 
         // Record Table
         table = new TableView<>();
         TableColumn<HealthRecord , Integer> recordIndex = new TableColumn<>("No");
-        TableColumn<HealthRecord , String> bloodPressure = new TableColumn<>("Blood Pressure");
-        TableColumn<HealthRecord , String> weight = new TableColumn<>("Weight");
-        TableColumn<HealthRecord , String> temperature = new TableColumn<>("Temperature");
+        TableColumn<HealthRecord , String> bloodPressure = new TableColumn<>("Blood Pressure (mmHg)");
+        TableColumn<HealthRecord , String> weight = new TableColumn<>("Weight (kg)");
+        TableColumn<HealthRecord , String> temperature = new TableColumn<>("Temperature (celsius)");
         TableColumn<HealthRecord , Timestamp> createdAt = new TableColumn<>("Created");
         TableColumn<HealthRecord , Timestamp> editedAt = new TableColumn<>("Edited");
         TableColumn<HealthRecord , String> note = new TableColumn<>("Note");
@@ -162,8 +178,8 @@ public class HomeController {
                 super.updateItem(item , empty);
                 if(empty || item == null){
                     setText(null);
-                } else if (item.length() > 45) {
-                    setText(item.substring(0,45) + "...");
+                } else if (item.length() > 30) {
+                    setText(item.substring(0,30) + "...");
                 }else{
                     setText(item);
                 }
@@ -174,7 +190,7 @@ public class HomeController {
             table.getItems().add(h);
         }
 
-        note.prefWidthProperty().bind(table.widthProperty().multiply(0.34));
+        note.prefWidthProperty().bind(table.widthProperty().multiply(0.21));
 
         recordIndex.setStyle("-fx-alignment: CENTER;");
         bloodPressure.setStyle("-fx-alignment: CENTER;");
@@ -193,18 +209,20 @@ public class HomeController {
     }
 
     public void openEditRecord(HealthRecord hr) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditRecordView.fxml"));
-        RecordController recordController = new RecordController(stage,model,hr);
-        recordController.setOnSaved(()-> {
-            try {
-                this.refreshTable();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        loader.setController(recordController);
-        Pane root = loader.load();
-        recordController.showStage(root);
+        if(hr != null){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditRecordView.fxml"));
+            RecordController recordController = new RecordController(stage,model,hr);
+            recordController.setOnSaved(()-> {
+                try {
+                    this.refreshTable();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            loader.setController(recordController);
+            Pane root = loader.load();
+            recordController.showStage(root);
+        }
     }
 
     public void refreshTable() throws SQLException {

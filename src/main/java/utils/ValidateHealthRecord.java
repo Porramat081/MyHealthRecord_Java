@@ -21,7 +21,10 @@ public class ValidateHealthRecord {
             } else{
                 return "";
             }
-        }catch (Exception e){
+        }catch (NumberFormatException e){
+            return "Blood pressure must be integer";
+        }
+        catch (Exception e){
             return e.getMessage();
         }
 
