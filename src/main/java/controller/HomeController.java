@@ -3,6 +3,8 @@ package controller;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,6 +42,8 @@ public class HomeController {
     private MenuItem signout;
     @FXML
     private MenuItem editprofile;
+
+    private TableView<HealthRecord> table;
 
 	
 	public HomeController(Stage parentStage, Model model) {
@@ -79,7 +83,7 @@ public class HomeController {
         });
 
         // Record Table
-        TableView<HealthRecord> table = new TableView<>();
+        table = new TableView<>();
         TableColumn<HealthRecord , Integer> recordIndex = new TableColumn<>("No");
         TableColumn<HealthRecord , String> bloodPressure = new TableColumn<>("Blood Pressure");
         TableColumn<HealthRecord , String> weight = new TableColumn<>("Weight");
@@ -102,6 +106,20 @@ public class HomeController {
         table.getColumns().add(createdAt);
         table.getColumns().add(editedAt);
         table.getColumns().add(note);
+
+        table.setRowFactory(tableview -> {
+            TableRow<HealthRecord> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                HealthRecord rowData = row.getItem();
+                try {
+                    this.openEditRecord(rowData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    this.showError("Error" , e.getMessage());
+                }
+            });
+            return row;
+        });
 
         recordIndex.setCellValueFactory(cellData ->
                 new ReadOnlyObjectWrapper<>(table.getItems().indexOf(cellData.getValue()) + 1)
@@ -150,7 +168,6 @@ public class HomeController {
         });
 
         for (HealthRecord h : model.getCurrentHealthRecords()){
-            System.out.println(h.getNote());
             table.getItems().add(h);
         }
 
@@ -170,6 +187,36 @@ public class HomeController {
 
         String welcomeMessage = welcome.getText() + " " + currentUser.getFirstname()+" "+currentUser.getLastname();
         welcome.setText(welcomeMessage);
+    }
+
+    public void openEditRecord(HealthRecord hr) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditRecordView.fxml"));
+        RecordController recordController = new RecordController(stage,model,hr);
+        recordController.setOnSaved(()-> {
+            try {
+                this.refreshTable();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        loader.setController(recordController);
+        Pane root = loader.load();
+        recordController.showStage(root);
+    }
+
+    public void refreshTable() throws SQLException {
+        ObservableList<HealthRecord> data = FXCollections.observableArrayList(
+                model.getHealthRecordDao().getHealthRecords(model.getCurrentUser().getUsername())
+        );
+        table.setItems(data);
+    }
+
+    public static void showError(String header, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 	public void showStage(Pane root) {

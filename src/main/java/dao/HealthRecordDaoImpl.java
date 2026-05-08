@@ -1,7 +1,7 @@
 package dao;
 
 import model.HealthRecord;
-import model.HealthRecordDao;
+import dao.HealthRecordDao;
 import utils.FormatterString;
 
 import java.sql.*;
@@ -70,6 +70,26 @@ public class HealthRecordDaoImpl implements HealthRecordDao {
             stmt.setString(5,note);
             stmt.setTimestamp(6 , timestampNow);
             stmt.setTimestamp(7 , timestampNow);
+            int result = stmt.executeUpdate();
+            if(result < 0){
+                return false;
+            }
+            return true;
+        }
+    }
+
+    @Override
+    public boolean editHealthRecord(HealthRecord editRecord , String username) throws SQLException {
+        String sql = "UPDATE " + TABLE_NAME + " SET bloodPressure = ? , weight = ? , temperature = ? , note = ? , editedAt = ? WHERE id = ? and username = ?";
+        try(Connection connection = Database.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);){
+            stmt.setString(1,editRecord.getBloodPressure());
+            stmt.setFloat(2,editRecord.getWeight());
+            stmt.setFloat(3 , editRecord.getTemperature());
+            stmt.setString(4 , editRecord.getNote());
+            stmt.setTimestamp(5,editRecord.getEditedAt());
+            stmt.setInt(6 , editRecord.getHealthRecordId());
+            stmt.setString(7 , username);
             int result = stmt.executeUpdate();
             if(result < 0){
                 return false;

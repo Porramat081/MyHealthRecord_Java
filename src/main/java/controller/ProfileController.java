@@ -22,7 +22,6 @@ import java.time.LocalDateTime;
 public class ProfileController {
     private Model model;
     private Stage stage;
-    private Stage parentStage;
 
     @FXML
     private Button cancel;
@@ -43,7 +42,6 @@ public class ProfileController {
 
     public ProfileController(Stage parentStage , Model model){
         this.stage = new Stage();
-        this.parentStage = parentStage;
         this.model = model;
     }
 

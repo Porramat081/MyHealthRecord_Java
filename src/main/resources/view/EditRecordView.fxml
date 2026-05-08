@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="260.0" layoutY="25.0" text="Edit Record">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="92.0" layoutY="87.0" text="Weight" />
+      <Label layoutX="168.0" layoutY="111.0" text="kg.">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="weight" alignment="CENTER" layoutX="92.0" layoutY="104.0" prefHeight="33.0" prefWidth="68.0" />
+      <Label layoutX="92.0" layoutY="161.0" text="Temperature" />
+      <TextField fx:id="temperature" alignment="CENTER" layoutX="92.0" layoutY="178.0" prefHeight="33.0" prefWidth="68.0" />
+      <Label layoutX="92.0" layoutY="228.0" text="Blood pressure" />
+      <TextField fx:id="upperBP" alignment="CENTER" layoutX="92.0" layoutY="245.0" prefHeight="33.0" prefWidth="38.0" />
+      <Label layoutX="140.0" layoutY="246.0" text="/">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <TextField fx:id="lowerBP" alignment="CENTER" layoutX="159.0" layoutY="245.0" prefHeight="33.0" prefWidth="38.0" />
+      <Label layoutX="169.0" layoutY="184.0" text="celsius">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="message" alignment="CENTER" layoutX="108.0" layoutY="300.0" prefHeight="17.0" prefWidth="425.0" />
+      <Label layoutX="320.0" layoutY="90.0" text="Note (max 50 characters)" />
+      <TextField fx:id="note" alignment="TOP_LEFT" layoutX="320.0" layoutY="110.0" prefHeight="165.0" prefWidth="225.0" />
+      <Button fx:id="edit" layoutX="321.0" layoutY="333.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="99.0" text="Edit" />
+      <Button fx:id="cancel" layoutX="446.0" layoutY="333.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="99.0" text="Cancel" />
+   </children>
+</Pane>

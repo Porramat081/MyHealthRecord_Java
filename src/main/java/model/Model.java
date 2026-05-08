@@ -3,6 +3,7 @@ package model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import dao.HealthRecordDao;
 import dao.HealthRecordDaoImpl;
 import dao.UserDao;
 import dao.UserDaoImpl;
@@ -49,4 +50,5 @@ public class Model {
     public void setCurrentHealthRecords(ArrayList<HealthRecord> hrs){
         this.currentHealthRecords = hrs;
     }
+
 }
