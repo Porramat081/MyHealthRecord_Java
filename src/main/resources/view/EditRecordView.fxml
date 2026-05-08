@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="260.0" layoutY="25.0" text="Edit Record">
@@ -40,6 +39,6 @@
       <Label layoutX="320.0" layoutY="90.0" text="Note (max 50 characters)" />
       <TextField fx:id="note" alignment="TOP_LEFT" layoutX="320.0" layoutY="110.0" prefHeight="165.0" prefWidth="225.0" />
       <Button fx:id="edit" layoutX="321.0" layoutY="333.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="99.0" text="Edit" />
-      <Button fx:id="cancel" layoutX="446.0" layoutY="333.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="99.0" text="Cancel" />
+      <Button fx:id="cancel" layoutX="446.0" layoutY="333.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="99.0" style="-fx-background-color: red;" text="Delete" textFill="WHITE" />
    </children>
 </Pane>

@@ -62,7 +62,21 @@ public class RecordController {
         note.setText(this.selectedRecord.getNote());
 
         cancel.setOnAction(event -> {
-            this.stage.close();
+            try {
+                boolean result = model.getHealthRecordDao().deleteHealthRecord(this.selectedRecord.getHealthRecordId(),model.getCurrentUser().getUsername());
+                if(result){
+                    message.setText("Delete record successfully");
+                    message.setTextFill(Color.GREEN);
+                    this.onSaved.run();
+                    this.stage.close();
+                }else{
+                    message.setText("Delete record unsuccessfully");
+                    message.setTextFill(Color.RED);
+                }
+            } catch (SQLException e) {
+                message.setText(e.getMessage());
+                message.setTextFill(Color.RED);
+            }
         });
 
         edit.setOnAction(event -> {

@@ -97,4 +97,20 @@ public class HealthRecordDaoImpl implements HealthRecordDao {
             return true;
         }
     }
+
+    @Override
+    public boolean deleteHealthRecord(int healthRecordId, String username) throws SQLException {
+        String sql = "DELETE FROM "+TABLE_NAME+" WHERE id = ? and username = ?";
+        try(Connection connection = Database.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);){
+            stmt.setInt(1,healthRecordId);
+            stmt.setString(2,username);
+
+            int result = stmt.executeUpdate();
+            if(result < 0){
+                return false;
+            }
+            return true;
+        }
+    }
 }
