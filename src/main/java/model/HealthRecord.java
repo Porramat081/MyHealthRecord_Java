@@ -96,4 +96,9 @@ public class HealthRecord {
         this.note = note;
     }
 
+    public String formatRecordForCSV(){
+        return this.healthRecordId+","+this.username+","+this.bloodPressure+","+
+                this.weight+","+this.temperature+","+this.note+","+
+                this.createdAt+","+this.editedAt;
+    }
 }

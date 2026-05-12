@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane prefHeight="517.0" prefWidth="694.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label alignment="CENTER" contentDisplay="TOP" prefHeight="87.0" prefWidth="694.0" text="SignUp Form" textAlignment="CENTER">
@@ -25,11 +24,11 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.99999999999994" minWidth="10.0" prefWidth="300.60001220703117" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints maxHeight="352.6000045776367" minHeight="10.0" prefHeight="284.8" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="167.60001220703128" minHeight="0.0" prefHeight="112.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="352.6000045776367" minHeight="10.0" prefHeight="343.1999633789063" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="167.60001220703128" minHeight="0.0" prefHeight="53.60003662109375" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Pane prefHeight="297.0" prefWidth="297.0">
+                <Pane prefHeight="383.0" prefWidth="349.0">
                     <children>
                         <Label layoutX="13.0" layoutY="14.0" prefHeight="22.0" prefWidth="273.0" text="Username">
                             <font>
@@ -46,21 +45,22 @@
                                 <Font size="15.0" />
                             </font>
                         </Label>
-                        <PasswordField fx:id="password" layoutX="12.0" layoutY="131.0" maxWidth="274.0" prefHeight="49.0" prefWidth="274.0" promptText="Create Password">
+                        <PasswordField fx:id="password" layoutX="12.0" layoutY="189.0" maxWidth="274.0" prefHeight="49.0" prefWidth="274.0" promptText="Create Password">
                             <font>
                                 <Font size="15.0" />
                             </font>
                         </PasswordField>
-                        <Label layoutX="12.0" layoutY="197.0" prefHeight="22.0" prefWidth="275.0" text="Confirm Password">
+                        <Label layoutX="12.0" layoutY="255.0" prefHeight="22.0" prefWidth="275.0" text="Confirm Password">
                             <font>
                                 <Font size="15.0" />
                             </font>
                         </Label>
-                        <PasswordField fx:id="confirmpassword" layoutX="12.0" layoutY="226.0" maxWidth="274.0" prefHeight="49.0" prefWidth="274.0" promptText="Confirm Password">
+                        <PasswordField fx:id="confirmpassword" layoutX="12.0" layoutY="284.0" maxWidth="274.0" prefHeight="49.0" prefWidth="274.0" promptText="Confirm Password">
                             <font>
                                 <Font size="15.0" />
                             </font>
                         </PasswordField>
+                  <Label fx:id="passwordLabel" layoutX="14.0" layoutY="124.0" prefHeight="49.0" prefWidth="273.0" />
                     </children>
                 </Pane>
                 <Pane prefHeight="199.0" prefWidth="301.0" GridPane.columnIndex="1">
@@ -86,22 +86,19 @@
                             </font>
                         </TextField>
                         <Label fx:id="status" layoutX="12.0" layoutY="202.0" prefHeight="77.0" prefWidth="282.0" />
-                    </children>
-                </Pane>
-                <HBox alignment="CENTER" prefHeight="56.0" prefWidth="301.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <children>
-                        <Button fx:id="createUser" mnemonicParsing="false" prefHeight="44.0" prefWidth="114.0" text="Create user">
+                        <Button fx:id="createUser" layoutX="24.0" layoutY="287.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="114.0" text="Create user">
                             <font>
                                 <Font size="15.0" />
                             </font>
                         </Button>
-                        <Button fx:id="close" mnemonicParsing="false" prefHeight="44.0" prefWidth="91.0" text="Close">
+                        <Button fx:id="close" layoutX="167.0" layoutY="287.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="91.0" text="Close">
                             <font>
                                 <Font size="15.0" />
                             </font>
                         </Button>
                     </children>
-                </HBox>
+                </Pane>
+                <HBox alignment="CENTER" prefHeight="56.0" prefWidth="301.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
         </GridPane>
     </children>

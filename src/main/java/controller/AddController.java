@@ -57,7 +57,7 @@ public class AddController {
                     if(result){
                         message.setText("Add new record successfully");
                         message.setTextFill(Color.GREEN);
-                        this.clearInput();
+                        this.clearInput(true);
                         this.onSaved.run();
 
                     }else{
@@ -76,7 +76,7 @@ public class AddController {
         });
 
         clear.setOnAction(event -> {
-            this.clearInput();
+            this.clearInput(false);
         });
     }
 
@@ -84,13 +84,15 @@ public class AddController {
         this.onSaved = callback;
     }
 
-    public void clearInput(){
+    public void clearInput(boolean isSuccess){
         weight.setText("");
         temperature.setText("");
         upperBP.setText("");
         lowerBP.setText("");
         note.setText("");
-        message.setText("");
+        if(!isSuccess) {
+            message.setText("");
+        }
     }
 
     public void showStage(Parent root) {

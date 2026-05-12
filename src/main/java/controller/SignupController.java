@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Model;
 import model.User;
+import utils.FormatterString;
 import utils.ValidateSignup;
 
 public class SignupController {
@@ -31,6 +32,8 @@ public class SignupController {
 	private Label status;
     @FXML
     private TextField confirmpassword;
+    @FXML
+    private Label passwordLabel;
 	
 	private Stage stage;
 	private Stage parentStage;
@@ -44,6 +47,7 @@ public class SignupController {
 
 	@FXML
 	public void initialize() {
+        passwordLabel.setText(FormatterString.generatePasswordRule());
 		createUser.setOnAction(event -> {
             String inputUsername = username.getText();
             String inputPassword = password.getText();

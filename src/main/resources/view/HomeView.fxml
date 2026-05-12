@@ -16,6 +16,7 @@
           <Menu mnemonicParsing="false" text="Menu">
             <items>
                   <MenuItem fx:id="editprofile" mnemonicParsing="false" text="Edit profile" />
+                  <MenuItem fx:id="exportmenu" mnemonicParsing="false" text="Export data" />
               <MenuItem fx:id="signout" mnemonicParsing="false" text="Sign out" />
             </items>
           </Menu>

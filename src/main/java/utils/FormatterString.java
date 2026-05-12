@@ -19,4 +19,12 @@ public class FormatterString {
 
       return output;
     }
+
+    public static String generatePasswordRule(){
+        String rule1 = "·password must has at least 8 characters\n";
+        String rule2 = "·password must has both letter and number.\n";
+        String rule3 = "·password must include at least one uppercase letter\n";
+        String rule4 = "·password must contain speacial character (!@#$%^&*...)\n";
+        return rule1+rule2+rule3+rule4;
+    }
 }

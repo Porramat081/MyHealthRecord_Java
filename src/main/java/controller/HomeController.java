@@ -19,6 +19,7 @@ import javafx.util.Callback;
 import model.HealthRecord;
 import model.Model;
 import model.User;
+import utils.Exporter;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,10 +31,9 @@ public class HomeController {
 	private Model model;
 	private Stage stage;
 	private Stage parentStage;
-	@FXML
-	private MenuItem viewProfile; // Corresponds to the Menu item "viewProfile" in HomeView.fxml
-	@FXML
-	private MenuItem updateProfile; // // Corresponds to the Menu item "updateProfile" in HomeView.fxml
+
+    @FXML
+    private MenuItem exportmenu;
     @FXML
     private Text welcome;
     @FXML
@@ -100,6 +100,14 @@ public class HomeController {
         Pane subPane = subloader.load();
 
         addpane.getChildren().add(subPane);
+
+        exportmenu.setOnAction(event-> {
+            try {
+                Exporter.exportCSV(model.getCurrentHealthRecords());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         // Record Table
         table = new TableView<>();
