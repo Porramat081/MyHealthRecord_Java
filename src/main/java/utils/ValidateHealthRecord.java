@@ -4,25 +4,72 @@ public class ValidateHealthRecord {
 
     public static String validateEditRecord(String weight, String temperature, String upper, String lower, String note) {
         try{
+            // Weight
             if (weight.isEmpty()) {
                 return "Weight must not be empty";
-            } else if (Float.parseFloat(weight) <= 0) {
-                return "Weight must be greater than 0";
-            } else if (temperature.isEmpty()) {
-                return "Temperature must not be empty";
-            } else if (Float.parseFloat(temperature) <= 0) {
-                return "Temperature must be greater than 0";
-            } else if (upper.isEmpty() || lower.isEmpty()) {
-                return "Blood pressure must be filled out both sides";
-            } else if (Integer.parseInt(upper) < 0 || Integer.parseInt(lower) < 0) {
-                return "Blood pressure must not be negative number";
-            } else if (note.length() > 50) {
-                return "Note must be less than 50 characters";
-            } else{
-                return "";
             }
-        }catch (NumberFormatException e){
-            return "Blood pressure must be integer";
+
+            float weightValue;
+
+            try {
+                weightValue = Float.parseFloat(weight);
+            } catch (NumberFormatException e) {
+                return "Weight must be a valid number";
+            }
+
+            if (weightValue <= 0) {
+                return "Weight must be greater than 0";
+            }
+
+            // Temperature
+            if (temperature.isEmpty()) {
+                return "Temperature must not be empty";
+            }
+
+            float temperatureValue;
+
+            try {
+                temperatureValue = Float.parseFloat(temperature);
+            } catch (NumberFormatException e) {
+                return "Temperature must be a valid num" +
+                        "ber";
+            }
+
+            if (temperatureValue <= 0) {
+                return "Temperature must be greater than 0";
+            }
+
+            // Blood pressure
+            if (upper.isEmpty() || lower.isEmpty()) {
+                return "Blood pressure must be filled out both sides";
+            }
+
+            int upperValue;
+            int lowerValue;
+
+            try {
+                upperValue = Integer.parseInt(upper);
+            } catch (NumberFormatException e) {
+                return "Upper blood pressure must be a valid integer";
+            }
+
+            try {
+                lowerValue = Integer.parseInt(lower);
+            } catch (NumberFormatException e) {
+                return "Lower blood pressure must be a valid integer";
+            }
+
+            if (upperValue < 0 || lowerValue < 0) {
+                return "Blood pressure must not be negative";
+            }
+
+            // Note
+            if (note.length() > 50) {
+                return "Note must not exceed 50 words";
+            }
+
+            return "";
+
         }
         catch (Exception e){
             return e.getMessage();

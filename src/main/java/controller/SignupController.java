@@ -72,7 +72,11 @@ public class SignupController {
 						status.setTextFill(Color.RED);
 					}
 				} catch (SQLException e) {
-					status.setText(e.getMessage());
+                    if(e.getMessage().startsWith("[SQLITE_CONSTRAINT_PRIMARYKEY]")){
+                        status.setText("This username is already used,\n Please try other username.");
+                    }else{
+                        status.setText(e.getMessage());
+                    }
 					status.setTextFill(Color.RED);
 				}
 				

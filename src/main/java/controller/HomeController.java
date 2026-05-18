@@ -187,6 +187,7 @@ public class HomeController {
                 if(empty || item == null){
                     setText(null);
                 } else if (item.length() > 30) {
+                    System.out.println(item);
                     setText(item.substring(0,30) + "...");
                 }else{
                     setText(item);

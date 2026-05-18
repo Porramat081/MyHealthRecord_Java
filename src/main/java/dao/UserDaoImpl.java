@@ -101,4 +101,18 @@ public class UserDaoImpl implements UserDao {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public String getTestHashPasswordFromDb(){
+        String sql = "SELECT password from users WHERE username = ?";
+        try (Connection connection = Database.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql);) {
+             stmt.setString(1, "testuser01");
+            ResultSet rs = stmt.executeQuery();
+
+            return rs.getString("password");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

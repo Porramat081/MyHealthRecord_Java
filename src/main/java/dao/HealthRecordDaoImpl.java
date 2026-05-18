@@ -59,18 +59,22 @@ public class HealthRecordDaoImpl implements HealthRecordDao {
         String sql = "INSERT INTO " + TABLE_NAME + " (username , bloodPressure , weight , temperature , note , createdAt , editedAt)" + " VALUES (?,?,?,?,?,?,?)";
         Timestamp timestampNow = Timestamp.valueOf(LocalDateTime.now());
         try(Connection connection = Database.getConnection();
-            PreparedStatement stmt = connection.prepareStatement(sql);){
-            stmt.setString(1,username);
+            Statement stmt = connection.createStatement();){
+            stmt.execute("PRAGMA foreign_keys = ON");
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setString(1,username);
 
             String finalBP = FormatterString.combineBP(upperBP,lowerBP);
 
-            stmt.setString(2,finalBP);
-            stmt.setFloat(3 , weight);
-            stmt.setFloat(4 , temperature);
-            stmt.setString(5,note);
-            stmt.setTimestamp(6 , timestampNow);
-            stmt.setTimestamp(7 , timestampNow);
-            int result = stmt.executeUpdate();
+            ps.setString(2,finalBP);
+            ps.setFloat(3 , weight);
+            ps.setFloat(4 , temperature);
+            ps.setString(5,note);
+            ps.setTimestamp(6 , timestampNow);
+            ps.setTimestamp(7 , timestampNow);
+            int result = ps.executeUpdate();
             if(result < 0){
                 return false;
             }
