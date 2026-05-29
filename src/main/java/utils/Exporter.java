@@ -11,9 +11,12 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 
 public class Exporter {
-
-
+    /* Utility class for exporting health records to a CSV file. */
     public static void exportCSV(ArrayList<HealthRecord> inputArr) throws IOException {
+        /*
+          Opens a save-file dialog, then writes all records as CSV rows with a header line.
+          Appends .csv if the user omits it.
+        */
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Specify a file to save");
 
@@ -28,15 +31,14 @@ public class Exporter {
                 fileToSave = new File(filePath + ".csv");
             }
 
-            // 2. Save the CSV
+            // Save the CSV
             try (PrintWriter pw = new PrintWriter(new FileWriter(fileToSave))) {
                 // Write header
                 pw.println("id,username,bloodPressure,weight,temperature,note,createdAt,editedAt");
+                // Write CSV row
                 for(HealthRecord hr : inputArr){
                     pw.println(hr.formatRecordForCSV());
                 }
-
-                System.out.println("File saved to: " + fileToSave.getAbsolutePath());
             }
         }
     }

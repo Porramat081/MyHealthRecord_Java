@@ -3,6 +3,7 @@ package testing;
 import dao.UserDao;
 import dao.UserDaoImpl;
 import model.User;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import utils.PasswordHasher;
@@ -20,15 +21,30 @@ public class UserTest {
     private User testExistingUser;
     private UserDao userDao;
 
-    String firstName = "newUser";
-    String lastName = "Tester";
-    String username = "newUsername";
-    String samplePassword = "Password123456!";
-    Timestamp timestampNow = Timestamp.valueOf(LocalDateTime.now());
+    String firstName;
+    String lastName;
+    String username;
+    String samplePassword;
+    Timestamp timestampNow;
 
     @Before
     public void setUp()  {
         userDao = new UserDaoImpl();
+
+        firstName = "newUser";
+        lastName = "Tester";
+        username = "newUsername";
+        samplePassword = "Password123456!";
+        timestampNow = Timestamp.valueOf(LocalDateTime.now());
+    }
+
+    @After
+    public void reset(){
+        firstName = null;
+        lastName = null;
+        username = null;
+        samplePassword = null;
+        timestampNow = null;
     }
 
     @Test

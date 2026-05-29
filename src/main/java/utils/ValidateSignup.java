@@ -1,8 +1,12 @@
 package utils;
 
 public class ValidateSignup {
-
+    /* Utility class for validating user account fields on sign-up and profile edit screens. */
     public static String validateForm(String username , String password , String firstname , String lastname , String confirmedPassword){
+        /*
+          Validates all signup fields including username length, password strength, name lengths, and password confirmation match.
+          Returns an error message or empty string if valid.
+        */
         String validatePass = checkPasswordStrength(password);
 
         if(username.isEmpty()){
@@ -29,6 +33,10 @@ public class ValidateSignup {
     }
 
     public static String checkPasswordStrength(String password) {
+        /*
+          Checks password strength against rules: min 8 chars, letter + digit, one uppercase, one special character.
+          Returns an error message or empty string if the password passes.
+        */
         int length = password.length();
         boolean hasLetter = false;
         boolean hasDigit = false;

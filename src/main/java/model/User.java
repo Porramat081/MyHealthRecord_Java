@@ -3,6 +3,7 @@ package model;
 import java.sql.Timestamp;
 
 public class User {
+    /* Represents a user account with username, hashed password, first/last name, and timestamps. */
 	private String username;
 	private String password;
     private String firstname;
@@ -12,10 +13,12 @@ public class User {
     private Timestamp editedAt;
 
 	public User() {
+        /* Initialize blank user */
 	}
 	
 	public User(String username, String password , String firstname , String lastname , Timestamp createdAt , Timestamp editedAt) {
-		this.username = username;
+		/* Creates a fully populated User object, typically when loading an existing account from the database. */
+        this.username = username;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;

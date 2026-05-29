@@ -13,8 +13,10 @@ import model.Model;
 import controller.LoginController;
 
 public class Main extends Application {
+    // Entry point for this program
 	private Model model;
 
+    // Create new model state
 	@Override
 	public void init() {
 		model = new Model();

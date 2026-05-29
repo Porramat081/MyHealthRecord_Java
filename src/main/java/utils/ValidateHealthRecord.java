@@ -1,8 +1,12 @@
 package utils;
 
 public class ValidateHealthRecord {
-
+    /* Utility class for validating health record fields before saving or updating a record. */
     public static String validateEditRecord(String weight, String temperature, String upper, String lower, String note) {
+        /*
+           Validates weight, temperature, blood pressure, and note fields.
+           Returns an error message string, or empty string if all fields are valid.
+        */
         try{
             // Weight
             if (weight.isEmpty()) {
@@ -31,8 +35,7 @@ public class ValidateHealthRecord {
             try {
                 temperatureValue = Float.parseFloat(temperature);
             } catch (NumberFormatException e) {
-                return "Temperature must be a valid num" +
-                        "ber";
+                return "Temperature must be a valid number";
             }
 
             if (temperatureValue <= 0) {

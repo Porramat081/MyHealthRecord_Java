@@ -28,6 +28,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class HomeController {
+    /*
+       Main dashboard controller.
+       Displays the welcome message, the Add Record pane, and the health records table.
+    */
 	private Model model;
 	private Stage stage;
 	private Stage parentStage;
@@ -48,28 +52,30 @@ public class HomeController {
     private TableView<HealthRecord> table;
 
 	public HomeController(Stage parentStage, Model model) {
-		this.stage = new Stage();
+        this.stage = new Stage();
 		this.parentStage = parentStage;
 		this.model = model;
 	}
-	
-	// Add your code to complete the functionality of the program
+
 	@FXML
     public void initialize() throws SQLException, IOException {
+        /*
+           Loads health records, builds the TableView,
+           and wires up the Sign Out, Edit Profile, and Export menu items.
+        */
         User currentUser = model.getCurrentUser();
-
         ArrayList<HealthRecord> hrs = model.getHealthRecordDao().getHealthRecords(currentUser.getUsername());
-
         model.setCurrentHealthRecords(hrs);
 
+        // Set Sign out function to signout tab interface
         signout.setOnAction(event -> {
             model.resetState();
             stage.close();
             parentStage.show();
         });
 
+        // Set Edit Profile function to editprofile tab interface
         editprofile.setOnAction(event -> {
-
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditView.fxml"));
                 ProfileController profileController = new ProfileController(stage,model);
@@ -86,7 +92,8 @@ public class HomeController {
                 throw new RuntimeException(e);
             }
         });
-        // Add record pane
+
+        // Load Add pane to home page
         FXMLLoader subloader = new FXMLLoader(getClass().getResource("/view/AddRecord.fxml"));
         AddController addController = new AddController(stage,model);
         addController.setOnSaved(()-> {
@@ -99,8 +106,10 @@ public class HomeController {
         subloader.setController(addController);
         Pane subPane = subloader.load();
 
+        // Adding add pane to home page child node
         addpane.getChildren().add(subPane);
 
+        // Set Export Function to exportmenu tab interface
         exportmenu.setOnAction(event-> {
             try {
                 Exporter.exportCSV(model.getCurrentHealthRecords());
@@ -109,7 +118,7 @@ public class HomeController {
             }
         });
 
-        // Record Table
+        // Create Health Record Table
         table = new TableView<>();
         TableColumn<HealthRecord , Integer> recordIndex = new TableColumn<>("No");
         TableColumn<HealthRecord , String> bloodPressure = new TableColumn<>("Blood Pressure (mmHg)");
@@ -210,7 +219,6 @@ public class HomeController {
 
         tablePane.setFitToWidth(true);
         tablePane.setFitToHeight(true);
-
         tablePane.setContent(table);
 
         String welcomeMessage = welcome.getText() + " " + currentUser.getFirstname()+" "+currentUser.getLastname();
@@ -218,6 +226,10 @@ public class HomeController {
     }
 
     public void openEditRecord(HealthRecord hr) throws IOException {
+        /*
+           Opens the Edit/Delete modal for the clicked record row.
+           Does nothing if the row is empty.
+        */
         if(hr != null){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditRecordView.fxml"));
             RecordController recordController = new RecordController(stage,model,hr);
@@ -235,6 +247,7 @@ public class HomeController {
     }
 
     public void refreshTable() throws SQLException {
+        /* Reloads the records table from the database after any create, edit, or delete operation. */
         ObservableList<HealthRecord> data = FXCollections.observableArrayList(
                 model.getHealthRecordDao().getHealthRecords(model.getCurrentUser().getUsername())
         );
@@ -242,6 +255,7 @@ public class HomeController {
     }
 
     public static void showError(String header, String message) {
+        /* Shows a modal error alert with the given header and message. */
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(header);
@@ -250,6 +264,7 @@ public class HomeController {
     }
 
 	public void showStage(Pane root) {
+        /* Opens the dashboard window (1280×800, non-resizable). */
 		Scene scene = new Scene(root, 1280, 800);
 		stage.setScene(scene);
 		stage.setResizable(false);

@@ -10,12 +10,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HealthRecordDaoImpl implements HealthRecordDao {
+    /* SQLite implementation of HealthRecordDao. Handles all database operations for the health_records table. */
     private final String TABLE_NAME = "health_records";
 
     public HealthRecordDaoImpl(){}
 
     @Override
     public void setup() throws SQLException {
+        /* Creates the health_records table if it does not already exist, with a foreign key to the users table. */
         try(Connection connection = Database.getConnection();
             Statement stmt = connection.createStatement()){
             String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (id INTEGER PRIMARY KEY AUTOINCREMENT ," +
@@ -33,6 +35,7 @@ public class HealthRecordDaoImpl implements HealthRecordDao {
 
     @Override
     public ArrayList<HealthRecord> getHealthRecords(String username) throws SQLException {
+        /* Fetches all health records belonging to the given username from the database. */
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE username = ?";
         ArrayList<HealthRecord> healthRecords = new ArrayList<>();
         try(Connection connection = Database.getConnection();
@@ -56,6 +59,7 @@ public class HealthRecordDaoImpl implements HealthRecordDao {
 
     @Override
     public boolean createHealthRecord(String username, float weight, float temperature, int upperBP, int lowerBP, String note) throws SQLException {
+        /* Inserts a new health record row for the given user with the current timestamp as both createdAt and editedAt. */
         String sql = "INSERT INTO " + TABLE_NAME + " (username , bloodPressure , weight , temperature , note , createdAt , editedAt)" + " VALUES (?,?,?,?,?,?,?)";
         Timestamp timestampNow = Timestamp.valueOf(LocalDateTime.now());
         try(Connection connection = Database.getConnection();
@@ -84,6 +88,7 @@ public class HealthRecordDaoImpl implements HealthRecordDao {
 
     @Override
     public boolean editHealthRecord(HealthRecord editRecord , String username) throws SQLException {
+        /* Updates an existing record's fields in the database, matching by record ID and username. */
         String sql = "UPDATE " + TABLE_NAME + " SET bloodPressure = ? , weight = ? , temperature = ? , note = ? , editedAt = ? WHERE id = ? and username = ?";
         try(Connection connection = Database.getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql);){
@@ -104,6 +109,7 @@ public class HealthRecordDaoImpl implements HealthRecordDao {
 
     @Override
     public boolean deleteHealthRecord(int healthRecordId, String username) throws SQLException {
+        /* Deletes the record with the given ID from the database, verifying it belongs to the given username. */
         String sql = "DELETE FROM "+TABLE_NAME+" WHERE id = ? and username = ?";
         try(Connection connection = Database.getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql);){

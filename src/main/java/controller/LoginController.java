@@ -20,6 +20,10 @@ import model.Model;
 import model.User;
 
 public class LoginController {
+    /*
+      Controls the Login screen.
+      Authenticates the user and navigates to the dashboard, or shows an error on failure.
+    */
 	@FXML
 	private TextField name;
 	@FXML
@@ -41,7 +45,10 @@ public class LoginController {
 	
 	@FXML
 	public void initialize() {
-
+        /*
+           Wires up Login and Sign Up buttons.
+           Pre-fills credentials if redirected from a successful sign-up.
+        */
         stage.setOnShown(event -> {
             if(model.getCurrentUser() != null){
                 name.setText(model.getCurrentUser().getUsername());
@@ -113,6 +120,7 @@ public class LoginController {
 	}
 	
 	public void showStage(Pane root) {
+        /* Opens the login window (694×517, non-resizable). */
 		Scene scene = new Scene(root, 694, 517);
 		stage.setScene(scene);
 		stage.setResizable(false);

@@ -20,6 +20,10 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class ProfileController {
+    /*
+      Lets the current user edit their first name, last name, and password.
+      Changes are persisted immediately.
+    */
     private Model model;
     private Stage stage;
 
@@ -49,6 +53,7 @@ public class ProfileController {
 
     @FXML
     public void initialize() throws SQLException{
+        /* Pre-fills the form with the current user's data and wires up the Edit and Cancel buttons. */
         User currentUser = model.getCurrentUser();
 
         username.setText(currentUser.getUsername());
@@ -92,10 +97,12 @@ public class ProfileController {
     }
 
     public void setOnSaved(Runnable callback){
+        /* Registers a callback invoked after a successful profile save (used to refresh the dashboard welcome text). */
         this.onSaved = callback;
     }
 
     public void showStage(Parent root) {
+        /* Opens the Edit Profile modal window (600×400, non-resizable, application-modal). */
         Scene scene = new Scene(root, 600, 400);
         stage.setScene(scene);
         stage.setResizable(false);

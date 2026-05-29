@@ -8,13 +8,15 @@ import model.User;
 import utils.PasswordHasher;
 
 public class UserDaoImpl implements UserDao {
-	private final String TABLE_NAME = "users";
+	/* SQLite implementation of UserDao. Handles all database operations for the users table, including password hashing. */
+    private final String TABLE_NAME = "users";
 
 	public UserDaoImpl() {
 	}
 
 	@Override
 	public void setup() throws SQLException {
+        /* Creates the users table if it does not already exist, with username as the primary key. */
 		try (Connection connection = Database.getConnection();
 				Statement stmt = connection.createStatement();) {
 			String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (username VARCHAR(16) NOT NULL,"
@@ -30,7 +32,8 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User getUser(String username, String password) throws SQLException {
-		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE username = ? and password = ?";
+		/* Looks up a user by username and hashed password. Returns the User object on match, or null if credentials are wrong. */
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE username = ? and password = ?";
 
 		try (Connection connection = Database.getConnection(); 
 				PreparedStatement stmt = connection.prepareStatement(sql);) {
@@ -60,6 +63,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean editUser(User editedUser) throws SQLException {
+        /* Updates the user's first name, last name, and hashed password in the database. */
         String sql = "UPDATE "+TABLE_NAME+" SET username = ? , password = ? , firstname = ? , lastname = ? , editedAt = ? WHERE username = ?";
 
         try(Connection connection = Database.getConnection();
@@ -81,7 +85,8 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User createUser(String username, String password , String firstName , String lastName) throws SQLException {
-		String sql = "INSERT INTO " + TABLE_NAME + " VALUES (?,?,?,?,?,?)";
+		/* Inserts a new user row with hashed password and current timestamps, then returns the created User object. */
+        String sql = "INSERT INTO " + TABLE_NAME + " VALUES (?,?,?,?,?,?)";
         Timestamp timestampNow = Timestamp.valueOf(LocalDateTime.now());
 
 		try (Connection connection = Database.getConnection();
@@ -104,6 +109,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public String getTestHashPasswordFromDb(){
+        /* Retrieves the stored hashed password for "testuser01", used for JUnit password hash verification tests. */
         String sql = "SELECT password from users WHERE username = ?";
         try (Connection connection = Database.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql);) {

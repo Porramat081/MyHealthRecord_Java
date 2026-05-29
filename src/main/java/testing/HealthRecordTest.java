@@ -6,6 +6,7 @@ import dao.UserDao;
 import dao.UserDaoImpl;
 import model.HealthRecord;
 import model.User;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import utils.FormatterString;
@@ -22,18 +23,40 @@ public class HealthRecordTest {
     private HealthRecordDao healthRecordDao;
     private UserDao userDao;
 
-    private String upperBp = "120";
-    private String lowerBp = "80";
-    private String weight = "60.5";
-    private String temperature = "37.5";
-    private String note = "Creating test";
+    private String upperBp;
+    private String lowerBp;
+    private String weight;
+    private String temperature;
+    private String note;
 
-    private String existUsername = "testuser01";
+    private String existUsername;
 
     @Before
     public void setUp() throws SQLException {
         healthRecordDao = new HealthRecordDaoImpl();
         userDao = new UserDaoImpl();
+
+        upperBp = "120";
+        lowerBp = "80";
+        weight = "60.5";
+        temperature = "37.5";
+        note = "Creating test";
+
+        existUsername = "testuser01";
+    }
+
+    @After
+    public void reset() throws SQLException{
+        healthRecordDao = null;
+        userDao = null;
+
+        upperBp = null;
+        lowerBp = null;
+        weight = null;
+        temperature = null;
+        note = null;
+
+        existUsername = null;
     }
 
     @Test

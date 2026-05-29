@@ -3,27 +3,25 @@ package model;
 import java.sql.Timestamp;
 
 public class HealthRecord {
+    /* Represents a single health record entry belonging to a user, storing blood pressure, weight, temperature, note, and timestamps. */
     private int healthRecordId;
     private String username; //user's username
     private String bloodPressure;
     private float weight;
     private float temperature;
     private String note;
-
     private Timestamp createdAt;
     private Timestamp editedAt;
 
     public HealthRecord(int healthRecordId, String username , String bloodPressure, float weight , float temperature , String note , Timestamp createdAt , Timestamp editedAt){
-
+        /* Creates a fully populated HealthRecord with all fields including database ID and timestamps. */
         this.healthRecordId = healthRecordId;
         this.username = username;
         this.bloodPressure = bloodPressure;
         this.weight = weight;
         this.temperature = temperature;
-
         this.createdAt = createdAt;
         this.editedAt = editedAt;
-
         this.note = note;
     }
 
@@ -97,6 +95,7 @@ public class HealthRecord {
     }
 
     public String formatRecordForCSV(){
+        /* Formats this record as a comma-separated CSV row for use by Exporter. */
         return this.healthRecordId+","+this.username+","+this.bloodPressure+","+
                 this.weight+","+this.temperature+","+this.note+","+
                 this.createdAt+","+this.editedAt;

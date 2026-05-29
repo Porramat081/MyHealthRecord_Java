@@ -11,6 +11,7 @@ import model.User;
  * without exposing details of the database. 
  */
 public interface UserDao {
+    /* DAO interface for user account operations. Defines methods for setup, login, signup, and profile editing. */
 	void setup() throws SQLException;
 	User getUser(String username, String password) throws SQLException;
 	User createUser(String username, String password , String firstName , String lastName) throws SQLException;

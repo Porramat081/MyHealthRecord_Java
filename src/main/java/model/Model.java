@@ -9,6 +9,7 @@ import dao.UserDao;
 import dao.UserDaoImpl;
 
 public class Model {
+    /* Central application model holding DAO references and the current session state (logged-in user and their health records). */
 	private UserDao userDao;
 	private User currentUser;
     private HealthRecordDao healthRecordDao;
@@ -20,11 +21,13 @@ public class Model {
 	}
 	
 	public void setup() throws SQLException {
-		userDao.setup();
+		/* Initialises the UserDao and HealthRecordDao, creating SQLite tables if they do not already exist. */
+        userDao.setup();
         healthRecordDao.setup();
 	}
 
     public void resetState(){
+        /* Clears the current user and health records, effectively logging the user out. */
         this.setCurrentUser(null);
         this.setCurrentHealthRecords(null);
     }

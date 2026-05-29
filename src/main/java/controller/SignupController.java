@@ -16,6 +16,7 @@ import utils.FormatterString;
 import utils.ValidateSignup;
 
 public class SignupController {
+    /* Controls the Sign Up screen. Validates input and creates a new user account via UserDao. */
 	@FXML
 	private TextField username;
 	@FXML
@@ -47,6 +48,10 @@ public class SignupController {
 
 	@FXML
 	public void initialize() {
+        /*
+           Wires up the Create User and Close buttons.
+           Shows validation errors inline, on success navigates back to login.
+        */
         passwordLabel.setText(FormatterString.generatePasswordRule());
 		createUser.setOnAction(event -> {
             String inputUsername = username.getText();
@@ -93,6 +98,7 @@ public class SignupController {
 	}
 	
 	public void showStage(Pane root) {
+        /* Opens the sign-up window (694×517, non-resizable). */
 		Scene scene = new Scene(root, 694, 517);
 		stage.setScene(scene);
 		stage.setResizable(false);

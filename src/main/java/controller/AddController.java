@@ -18,6 +18,10 @@ import utils.ValidateHealthRecord;
 import java.sql.SQLException;
 
 public class AddController {
+/*
+   Handles the Add Health Record form.
+   Validates input and saves a new record to the database via HealthRecordDao.
+*/
 
     private Model model;
     private Stage stage;
@@ -49,6 +53,10 @@ public class AddController {
 
     @FXML
     public void initialize() throws SQLException {
+         /*
+            Sets up the Add and Clear button handlers.
+            Shows an inline message on success or validation failure.
+         */
         add.setOnAction(event -> {
             String validateResult = ValidateHealthRecord.validateEditRecord(weight.getText(), temperature.getText(), upperBP.getText(), lowerBP.getText(), note.getText());
             if (validateResult.isEmpty()) {
@@ -81,10 +89,18 @@ public class AddController {
     }
 
     public void setOnSaved(Runnable callback) {
+        /*
+           Registers a callback to run after a record is saved successfully
+           (used by HomeController to refresh the table).
+        */
         this.onSaved = callback;
     }
 
     public void clearInput(boolean isSuccess){
+        /*
+           Clears all input fields.
+           Keeps the success message if isSuccess is true, otherwise clears it too.
+        */
         weight.setText("");
         temperature.setText("");
         upperBP.setText("");
@@ -96,6 +112,7 @@ public class AddController {
     }
 
     public void showStage(Parent root) {
+        /* Opens the Add Record modal window (600×400, non-resizable, application-modal). */
         Scene scene = new Scene(root, 600, 400);
         stage.setScene(scene);
         stage.setResizable(false);

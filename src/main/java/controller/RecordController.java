@@ -21,6 +21,10 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class RecordController {
+    /*
+       Controls the Edit/Delete Health Record modal.
+       Pre-fills the selected record's fields and handles save or delete.
+    */
     private Model model;
     private Stage stage;
     private HealthRecord selectedRecord;
@@ -53,6 +57,7 @@ public class RecordController {
 
     @FXML
     public void initialize() throws SQLException {
+        /* Populates fields from the selected record. Edit button validates and persists changes; Cancel button deletes the record. */
         weight.setText(String.valueOf(this.selectedRecord.getWeight()));
         temperature.setText(String.valueOf(this.selectedRecord.getTemperature()));
         HashMap<String, Integer> bp = FormatterString.splitBP(this.selectedRecord.getBloodPressure());
@@ -83,7 +88,7 @@ public class RecordController {
         edit.setOnAction(event -> {
             //validate edit health record
             String validateResult = ValidateHealthRecord.validateEditRecord(weight.getText(), temperature.getText(), upperBP.getText(), lowerBP.getText(), note.getText());
-            //edit
+
             if (validateResult.isEmpty()) {
                 this.selectedRecord.setWeight(Float.parseFloat(weight.getText()));
                 this.selectedRecord.setTemperature(Float.parseFloat(temperature.getText()));
@@ -119,10 +124,12 @@ public class RecordController {
     }
 
     public void setOnSaved(Runnable callback) {
+        /* Registers a callback invoked after the record is saved or deleted (used by HomeController to refresh the table). */
         this.onSaved = callback;
     }
 
     public void showStage(Parent root) {
+        /* Opens the Edit Health Record modal window (600×400, non-resizable, application-modal). */
         Scene scene = new Scene(root, 600, 400);
         stage.setScene(scene);
         stage.setResizable(false);
