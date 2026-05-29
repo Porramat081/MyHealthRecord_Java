@@ -112,8 +112,8 @@ public class HomeController {
         // Set Export Function to exportmenu tab interface
         exportmenu.setOnAction(event-> {
             try {
-                Exporter.exportCSV(model.getCurrentHealthRecords());
-            } catch (IOException e) {
+                Exporter.exportCSV(model.getHealthRecordDao().getHealthRecords(this.model.getCurrentUser().getUsername()));
+            } catch (IOException | SQLException e) {
                 throw new RuntimeException(e);
             }
         });
@@ -193,10 +193,7 @@ public class HomeController {
             @Override
             public void updateItem(String item , boolean empty){
                 super.updateItem(item , empty);
-                if(empty || item == null){
-                    setText(null);
-                } else if (item.length() > 30) {
-                    System.out.println(item);
+                if (item != null && item.length() > 30) {
                     setText(item.substring(0,30) + "...");
                 }else{
                     setText(item);
@@ -208,7 +205,14 @@ public class HomeController {
             table.getItems().add(h);
         }
 
+        recordIndex.prefWidthProperty().setValue(42);
+        bloodPressure.prefWidthProperty().bind(table.widthProperty().multiply(0.2));
+        weight.prefWidthProperty().bind(table.widthProperty().multiply(0.1));
+        temperature.prefWidthProperty().bind(table.widthProperty().multiply(0.145));
+        createdAt.prefWidthProperty().bind(table.widthProperty().multiply(0.145));
+        editedAt.prefWidthProperty().bind(table.widthProperty().multiply(0.145));
         note.prefWidthProperty().bind(table.widthProperty().multiply(0.21));
+
 
         recordIndex.setStyle("-fx-alignment: CENTER;");
         bloodPressure.setStyle("-fx-alignment: CENTER;");
